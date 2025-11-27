@@ -1,6 +1,5 @@
 # scraper/main.py 
 from scraper.base_scraper import BaseScraper
-from scraper.utils import save_to_csv
 
 def main():
     # Initialize the scraper
@@ -10,17 +9,19 @@ def main():
     try:
         scraper.start()
         
-        # Example usage:
-        # url = "https://example.com" 
+        # Navigate to the target URL
         url = "https://store.playstation.com/en-in/pages/latest" 
         scraper.navigate(url)
-        data = scraper.extract_data()
-        save_to_csv(data, "data/output.csv")
         
-        print("Framework initialized successfully. Ready to scrape!")
+        # Save the raw HTML content to a file
+        html_file = "data/playstation_latest.html"
+        scraper.save_html(html_file)
+        
+        print(f"\n✅ Page content saved successfully!")
+        print(f"📄 You can now process the HTML file: {html_file}")
         
         # Keep browser open for a moment to verify (optional)
-        import time; time.sleep(5)
+        import time; time.sleep(3)
         
     except Exception as e:
         print(f"An error occurred: {e}")
